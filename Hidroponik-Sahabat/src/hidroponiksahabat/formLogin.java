@@ -28,7 +28,6 @@ public class formLogin extends javax.swing.JFrame {
         PwLabel = new javax.swing.JLabel();
         jLabelClose = new javax.swing.JLabel();
         jLabelMin = new javax.swing.JLabel();
-        ButtonKeluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -70,38 +69,24 @@ public class formLogin extends javax.swing.JFrame {
             }
         });
 
-        ButtonKeluar.setBackground(new java.awt.Color(255, 0, 0));
-        ButtonKeluar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ButtonKeluar.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonKeluar.setText("Keluar");
-        ButtonKeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonKeluarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout bgLogin1Layout = new javax.swing.GroupLayout(bgLogin1);
         bgLogin1.setLayout(bgLogin1Layout);
         bgLogin1Layout.setHorizontalGroup(
             bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLogin1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 162, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLogin1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelMin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelClose)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLogin1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(ButtonKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+            .addGroup(bgLogin1Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 162, Short.MAX_VALUE))
         );
         bgLogin1Layout.setVerticalGroup(
             bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,9 +99,7 @@ public class formLogin extends javax.swing.JFrame {
                     .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonLogin)
-                    .addComponent(ButtonKeluar))
+                .addComponent(ButtonLogin)
                 .addGap(31, 31, 31))
         );
 
@@ -160,11 +143,6 @@ public class formLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pwKeyPressed
 
-    private void ButtonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKeluarActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_ButtonKeluarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -202,7 +180,6 @@ public class formLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonKeluar;
     private javax.swing.JButton ButtonLogin;
     private javax.swing.JLabel PwLabel;
     private hidroponiksahabat.bgLogin bgLogin1;
