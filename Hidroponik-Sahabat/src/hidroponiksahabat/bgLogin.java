@@ -10,7 +10,7 @@ public class bgLogin extends JPanel{
     private Image gambar1;
  
     public bgLogin() {
-        gambar1 = new ImageIcon(getClass().getResource("/gambar/home.png")).getImage();
+        gambar1 = new ImageIcon(getClass().getResource("/gambar/login.png")).getImage();
     }
  
     @Override

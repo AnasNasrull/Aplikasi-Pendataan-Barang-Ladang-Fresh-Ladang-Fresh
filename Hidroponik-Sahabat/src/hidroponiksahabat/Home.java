@@ -1,5 +1,6 @@
 package hidroponiksahabat;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Home extends javax.swing.JFrame {
@@ -18,17 +19,25 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         ButtonStok = new javax.swing.JButton();
         ButtonLogout = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        background1 = new hidroponiksahabat.Background();
+        jButtonMin = new javax.swing.JButton();
+        jButtonClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 580, 10));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("+ Transaksi");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 302, -1, -1));
 
         ButtonStok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ButtonStok.setText("Cek Stok");
@@ -37,6 +46,7 @@ public class Home extends javax.swing.JFrame {
                 ButtonStokActionPerformed(evt);
             }
         });
+        getContentPane().add(ButtonStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 302, -1, -1));
 
         ButtonLogout.setBackground(new java.awt.Color(255, 0, 0));
         ButtonLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -47,9 +57,11 @@ public class Home extends javax.swing.JFrame {
                 ButtonLogoutActionPerformed(evt);
             }
         });
+        getContentPane().add(ButtonLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("Grafik");
+        jTextField1.setText("                                 Grafik");
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 90, 338, 194));
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -65,55 +77,78 @@ public class Home extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonStok))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonLogout, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(26, 26, 26))
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 114, 168));
+
+        background1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButtonMin.setBackground(new java.awt.Color(16, 203, 22));
+        jButtonMin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonMin.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonMin.setText("—");
+        jButtonMin.setFocusable(false);
+        jButtonMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMinActionPerformed(evt);
+            }
+        });
+
+        jButtonClose.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonClose.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonClose.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonClose.setText("X");
+        jButtonClose.setFocusable(false);
+        jButtonClose.setMaximumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.setMinimumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.setPreferredSize(new java.awt.Dimension(49, 31));
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
+        background1.setLayout(background1Layout);
+        background1Layout.setHorizontalGroup(
+            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+                .addContainerGap(480, Short.MAX_VALUE)
+                .addComponent(jButtonMin)
+                .addGap(0, 0, 0)
+                .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(ButtonStok)
-                    .addComponent(ButtonLogout))
-                .addGap(25, 25, 25))
+        background1Layout.setVerticalGroup(
+            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(background1Layout.createSequentialGroup()
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonMin)
+                    .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 317, Short.MAX_VALUE))
         );
+
+        getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonStokActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
                 new CekStok().setVisible(true);
     }//GEN-LAST:event_ButtonStokActionPerformed
 
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
-        // TODO add your handling code here:
         if(JOptionPane.showConfirmDialog(null, "Anda Yakin Logout?", "Yakin", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             this.setVisible(false);
                 new formLogin().setVisible(true);
         }
     }//GEN-LAST:event_ButtonLogoutActionPerformed
+
+    private void jButtonMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinActionPerformed
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_jButtonMinActionPerformed
+
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +188,12 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonStok;
+    private hidroponiksahabat.Background background1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonMin;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

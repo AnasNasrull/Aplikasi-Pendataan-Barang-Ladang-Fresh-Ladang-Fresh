@@ -22,17 +22,19 @@ public class formLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        bgLogin1 = new hidroponiksahabat.bgLogin();
+        bgLogin2 = new hidroponiksahabat.bgLogin();
         pw = new javax.swing.JPasswordField();
         ButtonLogin = new javax.swing.JButton();
         PwLabel = new javax.swing.JLabel();
-        jLabelClose = new javax.swing.JLabel();
-        jLabelMin = new javax.swing.JLabel();
+        jButtonClose = new javax.swing.JButton();
+        jButtonMin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 540, 10));
+
+        bgLogin2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         pw.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         pw.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -53,60 +55,79 @@ public class formLogin extends javax.swing.JFrame {
         PwLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PwLabel.setText("Password");
 
-        jLabelClose.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabelClose.setText("X");
-        jLabelClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCloseMouseClicked(evt);
+        jButtonClose.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonClose.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonClose.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonClose.setText("X");
+        jButtonClose.setFocusable(false);
+        jButtonClose.setMaximumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.setMinimumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
             }
         });
 
-        jLabelMin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabelMin.setText("-");
-        jLabelMin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinMouseClicked(evt);
+        jButtonMin.setBackground(new java.awt.Color(16, 203, 22));
+        jButtonMin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonMin.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonMin.setText("—");
+        jButtonMin.setFocusable(false);
+        jButtonMin.setMaximumSize(new java.awt.Dimension(49, 31));
+        jButtonMin.setMinimumSize(new java.awt.Dimension(49, 31));
+        jButtonMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMinActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout bgLogin1Layout = new javax.swing.GroupLayout(bgLogin1);
-        bgLogin1.setLayout(bgLogin1Layout);
-        bgLogin1Layout.setHorizontalGroup(
-            bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLogin1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelMin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelClose)
-                .addContainerGap())
-            .addGroup(bgLogin1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 162, Short.MAX_VALUE))
+        javax.swing.GroupLayout bgLogin2Layout = new javax.swing.GroupLayout(bgLogin2);
+        bgLogin2.setLayout(bgLogin2Layout);
+        bgLogin2Layout.setHorizontalGroup(
+            bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLogin2Layout.createSequentialGroup()
+                .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLogin2Layout.createSequentialGroup()
+                        .addGap(442, 442, 442)
+                        .addComponent(jButtonMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLogin2Layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        bgLogin1Layout.setVerticalGroup(
-            bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLogin1Layout.createSequentialGroup()
-                .addGroup(bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                .addGroup(bgLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        bgLogin2Layout.setVerticalGroup(
+            bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLogin2Layout.createSequentialGroup()
+                .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonMin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(15, 15, 15)
                 .addComponent(ButtonLogin)
-                .addGap(31, 31, 31))
+                .addGap(50, 50, 50))
         );
 
-        getContentPane().add(bgLogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 430));
+        getContentPane().add(bgLogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinActionPerformed
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_jButtonMinActionPerformed
+
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonCloseActionPerformed
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
         String pass = "admin";
@@ -126,18 +147,7 @@ public class formLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonLoginActionPerformed
 
-    private void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jLabelCloseMouseClicked
-
-    private void jLabelMinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinMouseClicked
-        // TODO add your handling code here:
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinMouseClicked
-
     private void pwKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             ButtonLoginActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), ""));
         }
@@ -182,9 +192,9 @@ public class formLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonLogin;
     private javax.swing.JLabel PwLabel;
-    private hidroponiksahabat.bgLogin bgLogin1;
-    private javax.swing.JLabel jLabelClose;
-    private javax.swing.JLabel jLabelMin;
+    private hidroponiksahabat.bgLogin bgLogin2;
+    private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonMin;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField pw;
     // End of variables declaration//GEN-END:variables

@@ -1,8 +1,11 @@
 package hidroponiksahabat;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +22,7 @@ public class CekStok extends javax.swing.JFrame {
              model.addColumn("Kode Barang");
              model.addColumn("Nama Barang");
              model.addColumn("Jumlah");
+             model.addColumn("Harga Barang");
              
              DataStok();
       }
@@ -33,10 +37,11 @@ public class CekStok extends javax.swing.JFrame {
               ResultSet res = stat.executeQuery(sql);
 
               while(res.next ()){
-                   Object[ ] obj = new Object[3];
-                   obj[0] = res.getString("kode_barang");
+                   Object[ ] obj = new Object[4];
+                   obj[0] = res.getString("id_barang");
                    obj[1] = res.getString("nama_barang");
                    obj[2] = res.getString("jumlah_barang");
+                   obj[3] = res.getString("harga_barang");
 
                    model.addRow(obj);
                }
@@ -54,32 +59,78 @@ public class CekStok extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TabelStok = new javax.swing.JTable();
-        ButtonCari = new javax.swing.JButton();
-        Cari = new javax.swing.JTextField();
+        background1 = new hidroponiksahabat.Background();
+        jButtonMin = new javax.swing.JButton();
+        jButtonClose = new javax.swing.JButton();
+        ButtonTambahBarang = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        nama_barang = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        ButtonKembali = new javax.swing.JButton();
+        Cari = new javax.swing.JTextField();
+        ButtonCari = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TabelStok = new javax.swing.JTable();
         ButtonTambahStok = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        harga_barang = new javax.swing.JTextField();
+        ButtonKembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TabelStok.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
+        background1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButtonMin.setBackground(new java.awt.Color(16, 203, 22));
+        jButtonMin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonMin.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonMin.setText("—");
+        jButtonMin.setFocusable(false);
+        jButtonMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMinActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(TabelStok);
+        });
+
+        jButtonClose.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonClose.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonClose.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonClose.setText("X");
+        jButtonClose.setFocusable(false);
+        jButtonClose.setMaximumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.setMinimumSize(new java.awt.Dimension(49, 31));
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
+            }
+        });
+
+        ButtonTambahBarang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonTambahBarang.setText("Tambah Barang");
+        ButtonTambahBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonTambahBarangActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Harga Barang");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Nama Barang");
+
+        nama_barang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("STOK");
+
+        Cari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CariKeyPressed(evt);
+            }
+        });
 
         ButtonCari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ButtonCari.setText("Cari");
@@ -89,18 +140,18 @@ public class CekStok extends javax.swing.JFrame {
             }
         });
 
-        Cari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("STOK");
-
-        ButtonKembali.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ButtonKembali.setText("Kembali");
-        ButtonKembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonKembaliActionPerformed(evt);
+        TabelStok.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
+        ));
+        jScrollPane1.setViewportView(TabelStok);
 
         ButtonTambahStok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ButtonTambahStok.setText("Tambah Stok");
@@ -110,91 +161,116 @@ public class CekStok extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nama Barang");
+        harga_barang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonKembali.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonKembali.setText("Kembali");
+        ButtonKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKembaliActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("Tambah Barang");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
+        background1.setLayout(background1Layout);
+        background1Layout.setHorizontalGroup(
+            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(ButtonKembali)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonTambahStok))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cari, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ButtonCari))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(background1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(13, 13, 13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                                .addGap(11, 11, 11)
+                                .addComponent(nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(10, 10, 10)
+                                .addComponent(harga_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(ButtonTambahBarang)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addGap(346, 346, 346)
+                                .addComponent(Cari, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(ButtonCari))
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(ButtonKembali)
+                                .addGap(341, 341, 341)
+                                .addComponent(ButtonTambahStok)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
+            .addGroup(background1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(88, 88, 88)
-                        .addComponent(ButtonKembali)
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ButtonCari)
-                            .addComponent(Cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonTambahStok)
-                        .addContainerGap(25, Short.MAX_VALUE))))
+                .addGap(198, 198, 198)
+                .addComponent(jButtonMin)
+                .addGap(0, 0, 0)
+                .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jSeparator1)
         );
+        background1Layout.setVerticalGroup(
+            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(background1Layout.createSequentialGroup()
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonMin))
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(5, 5, 5)))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(Cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonCari))
+                .addGap(18, 18, 18)
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel3))
+                            .addComponent(harga_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addComponent(ButtonTambahBarang))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(ButtonKembali))
+                    .addComponent(ButtonTambahStok))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         new Home().setVisible(true);
     }//GEN-LAST:event_ButtonKembaliActionPerformed
 
     private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
-        // TODO add your handling code here:
         model.getDataVector( ).removeAllElements( );
         model.fireTableDataChanged( );
         
@@ -202,14 +278,15 @@ public class CekStok extends javax.swing.JFrame {
         
         try{
               Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-              String sql = "Select * from barang where kode_barang='" + search + "' or nama_barang='" + search + "' or jumlah_barang='" + search + "'" ;
+              String sql = "Select * from barang where id_barang='" + search +"' or nama_barang='" + search + "' or jumlah_barang='" + search +"' or harga_barang='" + search +  "'";
               ResultSet res = stat.executeQuery(sql);
 
               while(res.next ()){
-                   Object[ ] obj = new Object[3];
-                   obj[0] = res.getString("kode_barang");
+                   Object[ ] obj = new Object[4];
+                   obj[0] = res.getString("id_barang");
                    obj[1] = res.getString("nama_barang");
                    obj[2] = res.getString("jumlah_barang");
+                   obj[3] = res.getString("harga_barang");
 
                    model.addRow(obj);
                }
@@ -219,10 +296,39 @@ public class CekStok extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonCariActionPerformed
 
     private void ButtonTambahStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahStokActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         new TambahStok().setVisible(true);
     }//GEN-LAST:event_ButtonTambahStokActionPerformed
+
+    private void ButtonTambahBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahBarangActionPerformed
+        String nama = nama_barang.getText();
+        int jumlah = 0;
+        int harga = Integer.parseInt( harga_barang.getText());
+        
+        try{
+              Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+              String sql = "insert into barang(nama_barang,jumlah_barang,harga_barang) values ("+"'"+nama+"',"+jumlah+","+harga+")";
+              stat.execute(sql);
+              DataStok();
+         }catch(SQLException err){
+               JOptionPane.showMessageDialog(null, err.getMessage() );
+         }
+          
+    }//GEN-LAST:event_ButtonTambahBarangActionPerformed
+
+    private void jButtonMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinActionPerformed
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_jButtonMinActionPerformed
+
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void CariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CariKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ButtonCariActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), ""));
+        }
+    }//GEN-LAST:event_CariKeyPressed
 
     /**
      * @param args the command line arguments
@@ -262,14 +368,19 @@ public class CekStok extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCari;
     private javax.swing.JButton ButtonKembali;
+    private javax.swing.JButton ButtonTambahBarang;
     private javax.swing.JButton ButtonTambahStok;
     private javax.swing.JTextField Cari;
     private javax.swing.JTable TabelStok;
-    private javax.swing.JButton jButton2;
+    private hidroponiksahabat.Background background1;
+    private javax.swing.JTextField harga_barang;
+    private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonMin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nama_barang;
     // End of variables declaration//GEN-END:variables
 }
