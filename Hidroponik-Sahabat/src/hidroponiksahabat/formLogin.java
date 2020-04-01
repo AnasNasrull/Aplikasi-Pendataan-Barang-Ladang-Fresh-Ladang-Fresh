@@ -28,6 +28,7 @@ public class formLogin extends javax.swing.JFrame {
         PwLabel = new javax.swing.JLabel();
         jButtonClose = new javax.swing.JButton();
         jButtonMin = new javax.swing.JButton();
+        LupaPw = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -73,11 +74,19 @@ public class formLogin extends javax.swing.JFrame {
         jButtonMin.setForeground(new java.awt.Color(255, 255, 255));
         jButtonMin.setText("—");
         jButtonMin.setFocusable(false);
-        jButtonMin.setMaximumSize(new java.awt.Dimension(49, 31));
-        jButtonMin.setMinimumSize(new java.awt.Dimension(49, 31));
         jButtonMin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMinActionPerformed(evt);
+            }
+        });
+
+        LupaPw.setBackground(new java.awt.Color(255, 0, 0));
+        LupaPw.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        LupaPw.setForeground(new java.awt.Color(255, 255, 255));
+        LupaPw.setText("Lupa Password?");
+        LupaPw.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LupaPwMouseClicked(evt);
             }
         });
 
@@ -89,7 +98,7 @@ public class formLogin extends javax.swing.JFrame {
                 .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLogin2Layout.createSequentialGroup()
                         .addGap(442, 442, 442)
-                        .addComponent(jButtonMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonMin)
                         .addGap(0, 0, 0)
                         .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLogin2Layout.createSequentialGroup()
@@ -98,7 +107,8 @@ public class formLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LupaPw, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         bgLogin2Layout.setVerticalGroup(
@@ -107,13 +117,15 @@ public class formLogin extends javax.swing.JFrame {
                 .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonMin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
                 .addGroup(bgLogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(ButtonLogin)
-                .addGap(50, 50, 50))
+                .addGap(18, 18, 18)
+                .addComponent(LupaPw)
+                .addGap(18, 18, 18))
         );
 
         getContentPane().add(bgLogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 430));
@@ -153,6 +165,11 @@ public class formLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pwKeyPressed
 
+    private void LupaPwMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LupaPwMouseClicked
+        this.setVisible(false);
+        new LupaPassword().setVisible(true);
+    }//GEN-LAST:event_LupaPwMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -181,16 +198,14 @@ public class formLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new formLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new formLogin().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonLogin;
+    private javax.swing.JLabel LupaPw;
     private javax.swing.JLabel PwLabel;
     private hidroponiksahabat.bgLogin bgLogin2;
     private javax.swing.JButton jButtonClose;
