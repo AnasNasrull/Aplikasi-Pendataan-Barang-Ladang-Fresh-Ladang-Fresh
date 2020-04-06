@@ -93,25 +93,35 @@ public class GantiPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonGantiPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonGantiPassActionPerformed
-        try{
-              Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-              String sql = "Update password SET password='"+password.getText()+"' WHERE no='1'";
-              stat.execute(sql);
+        if (password.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Kolom Password Tidak Boleh Kosong!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                String sql = "Update password SET password='" + password.getText() + "' WHERE no='1'";
+                stat.execute(sql);
+                JOptionPane.showMessageDialog(this, "Password Berhasil Diganti!");
 
-         }catch(SQLException err){
-               JOptionPane.showMessageDialog(null, err.getMessage() );
-         }
+            } catch (SQLException err) {
+                JOptionPane.showMessageDialog(null, err.getMessage());
+            }
+        }
     }//GEN-LAST:event_ButtonGantiPassActionPerformed
 
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
-        try{
-              Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-              String sql = "Update password SET password='"+password.getText()+"' WHERE no='1'";
-              stat.execute(sql);
+        if (password.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Kolom Password Tidak Boleh Kosong!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                String sql = "Update password SET password='" + password.getText() + "' WHERE no='1'";
+                stat.execute(sql);
+                JOptionPane.showMessageDialog(this, "Password Berhasil Diganti!");
 
-         }catch(SQLException err){
-               JOptionPane.showMessageDialog(null, err.getMessage() );
-         }
+            } catch (SQLException err) {
+                JOptionPane.showMessageDialog(null, err.getMessage());
+            }
+        }
     }//GEN-LAST:event_passwordKeyPressed
 
     /**
