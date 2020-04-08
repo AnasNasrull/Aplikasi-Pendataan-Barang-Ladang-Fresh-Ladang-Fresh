@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Transaksi extends javax.swing.JFrame {
+    String idTransaksi;
     String id;
     String barang;
     int jumlah;
     Integer harga;
     Integer total;
+    Integer jumlah_transaksi = 0;
     private DefaultTableModel model;
     Tanggal date;
-    /**
-     * Creates new form Transaksi
-     */
+   
     
     public void setData() {
         try {
@@ -36,6 +36,32 @@ public class Transaksi extends javax.swing.JFrame {
         }
     }
     
+    public void IdTransaksi(){
+        String id = null;
+        try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String sql = "Select * from transaksi";
+            ResultSet res = stat.executeQuery(sql);
+
+            while (res.next()) {
+                id = res.getString("id_transaksi");
+            }
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
+        if (id == null){
+            id = "TR000001";
+        }
+        else {
+            Integer code = Integer.parseInt(id.substring(2, id.length()));
+            Integer temp = code + 1;
+            id = id.replaceAll(code.toString(),temp.toString());
+        }
+        idTransaksi = id;
+        no_transaksi.setText(id);
+        
+    }
+    
     public Transaksi() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -50,6 +76,7 @@ public class Transaksi extends javax.swing.JFrame {
         setData();
         date = new Tanggal();
         tanggal.setText(date.getTanggal());
+        IdTransaksi();
         this.setLocationRelativeTo(null);
     }
 
@@ -259,6 +286,7 @@ public class Transaksi extends javax.swing.JFrame {
         obj[4] = total;
         
         model.addRow(obj);
+        jumlah_transaksi += total;
     }//GEN-LAST:event_tambahActionPerformed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
@@ -274,8 +302,27 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_hapusActionPerformed
 
     private void selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selesaiActionPerformed
+        int jumlah = tableTambah.getRowCount();
         
-        
+        if (jumlah > 0) {
+            try {
+                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                String sql = "insert into transaksi(id_transaksi, jumlah_transaksi) values ("+"'"+ idTransaksi +"',"+ jumlah_transaksi +")";
+                stat.execute(sql);
+                for(int i=0; i<jumlah; i++){
+                    id = tableTambah.getValueAt(i, 0).toString();
+                    jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
+                    sql = "insert into item_transaksi(id_transaksi, id_barang, jumlah_barang) values (" + "'" + idTransaksi + "'," + "'" + id + "'," + jumlah + ")";
+                    stat.execute(sql);               
+                    }
+                                
+            } catch (SQLException err) {
+                JOptionPane.showMessageDialog(null, err.getMessage());
+            }
+            
+          } else {
+            JOptionPane.showMessageDialog(null, "Data Masih Kosong!!!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_selesaiActionPerformed
 
     /**
@@ -304,7 +351,7 @@ public class Transaksi extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Transaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
