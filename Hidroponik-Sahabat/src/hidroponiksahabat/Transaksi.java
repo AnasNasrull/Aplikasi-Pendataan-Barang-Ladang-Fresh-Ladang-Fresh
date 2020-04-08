@@ -29,7 +29,6 @@ public class Transaksi extends javax.swing.JFrame {
 
             while (res.next()) {
                 jComboBox1.addItem(res.getString(2));
-                System.out.println(res.getString("nama_barang"));
             }
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, err.getMessage());
@@ -313,13 +312,21 @@ public class Transaksi extends javax.swing.JFrame {
                     id = tableTambah.getValueAt(i, 0).toString();
                     jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
                     sql = "insert into item_transaksi(id_transaksi, id_barang, jumlah_barang) values (" + "'" + idTransaksi + "'," + "'" + id + "'," + jumlah + ")";
-                    stat.execute(sql);               
+                    stat.execute(sql);
+                    sql = "Select jumlah_barang from barang where id_barang = "+ id;
+                    ResultSet res = stat.executeQuery(sql);
+                    int temp = res.getInt("jumlah_barang");
+                    temp = temp-jumlah;
+                    sql = "update barang set jumlah_barang ="+ temp;
+                    stat.execute(sql);
                     }
                                 
             } catch (SQLException err) {
                 JOptionPane.showMessageDialog(null, err.getMessage());
             }
-            
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan","Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            new Home().setVisible(true);
           } else {
             JOptionPane.showMessageDialog(null, "Data Masih Kosong!!!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }

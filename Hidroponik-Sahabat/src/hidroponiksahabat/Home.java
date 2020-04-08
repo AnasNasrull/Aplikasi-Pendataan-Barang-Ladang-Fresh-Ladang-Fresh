@@ -47,6 +47,11 @@ public class Home extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("+ Transaksi");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 302, -1, -1));
 
         ButtonLogout.setBackground(new java.awt.Color(255, 0, 0));
@@ -164,6 +169,12 @@ public class Home extends javax.swing.JFrame {
         this.setVisible(false);
         new GantiPassword().setVisible(true);
     }//GEN-LAST:event_ButtonGantiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new Transaksi().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
