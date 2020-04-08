@@ -2,6 +2,9 @@ package hidroponiksahabat;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
@@ -142,12 +145,23 @@ public class formLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCloseActionPerformed
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
-        String pass = "admin";
+        String pass = "";
 
         if (pw.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Kolom Password Tidak Boleh Kosong!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             pw.requestFocus();
         } else {
+            try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String sql = "Select password from password where no='1'";
+            ResultSet res = stat.executeQuery(sql);
+
+            while (res.next()) {
+                pass = res.getString("password");
+            }
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
             if (pass.equals(pw.getText())) {
                 this.setVisible(false);
                 new Home().setVisible(true);
