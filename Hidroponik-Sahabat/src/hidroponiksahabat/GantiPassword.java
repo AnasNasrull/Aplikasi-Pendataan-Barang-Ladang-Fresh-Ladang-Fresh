@@ -11,6 +11,7 @@ public class GantiPassword extends javax.swing.JFrame {
      */
     public GantiPassword() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -24,7 +25,7 @@ public class GantiPassword extends javax.swing.JFrame {
 
         ButtonGantiPass = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ButtonCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
 
@@ -39,16 +40,15 @@ public class GantiPassword extends javax.swing.JFrame {
 
         jLabel2.setText("Password Baru");
 
-        jButton1.setText("Cancel");
+        ButtonCancel.setText("Cancel");
+        ButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCancelActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("Form Ganti Password");
-
-        password.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,7 +56,7 @@ public class GantiPassword extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(jButton1)
+                .addComponent(ButtonCancel)
                 .addGap(86, 86, 86))
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
@@ -85,7 +85,7 @@ public class GantiPassword extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(ButtonGantiPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(ButtonCancel)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -105,24 +105,16 @@ public class GantiPassword extends javax.swing.JFrame {
             } catch (SQLException err) {
                 JOptionPane.showMessageDialog(null, err.getMessage());
             }
+            
+            this.setVisible(false);
+            new Home().setVisible(true);
         }
     }//GEN-LAST:event_ButtonGantiPassActionPerformed
 
-    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
-        if (password.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Kolom Password Tidak Boleh Kosong!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-        } else {
-            try {
-                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-                String sql = "Update password SET password='" + password.getText() + "' WHERE no='1'";
-                stat.execute(sql);
-                JOptionPane.showMessageDialog(this, "Password Berhasil Diganti!");
-
-            } catch (SQLException err) {
-                JOptionPane.showMessageDialog(null, err.getMessage());
-            }
-        }
-    }//GEN-LAST:event_passwordKeyPressed
+    private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed
+        this.setVisible(false);
+        new Home().setVisible(true);
+    }//GEN-LAST:event_ButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,8 +152,8 @@ public class GantiPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCancel;
     private javax.swing.JButton ButtonGantiPass;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField password;

@@ -9,11 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TambahStok extends javax.swing.JFrame {
-    String id;
-    String barang;
+    String id, barang, stok;
     int jumlah;
-    Integer harga;
-    Integer total;
+    Integer harga, total;
     private DefaultTableModel model;
 
     /**
@@ -49,6 +47,16 @@ public class TambahStok extends javax.swing.JFrame {
         Tanggal date = new Tanggal();
         tanggal.setText(date.getTanggal());
         this.setLocationRelativeTo(null);
+    }
+    
+    public void setStok() {
+        try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+        String sql = "Update barang SET jumlah_barang=" + jumlah + " WHERE id_barang=" + id;
+        stat.execute(sql);
+        } catch(SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
     }
 
     /**
@@ -256,6 +264,7 @@ public class TambahStok extends javax.swing.JFrame {
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
                 id = res.getString("id_barang");
+                stok = res.getString("jumlah_barang");
             }
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, err.getMessage());
@@ -285,15 +294,23 @@ public class TambahStok extends javax.swing.JFrame {
 
     private void selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selesaiActionPerformed
         if (id != null) {
-            try {
-                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-                String sql = "insert into stock(id_barang, jumlah_stock, harga_stock) values (" + "'" + id + "'," + "'" + jumlah + "'," + harga + ")";
-                stat.execute(sql);
-            } catch (SQLException err) {
-                JOptionPane.showMessageDialog(null, err.getMessage());
-            }
-
             if (JOptionPane.showConfirmDialog(null, "Data Sudah Benar?", "Yakin", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                try {
+                    Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                    String sql = "insert into stock(id_barang, jumlah_stock, harga_stock) values (" + "'" + id + "'," + "'" + jumlah + "'," + harga + ")";
+                    stat.execute(sql);
+
+                    int temp = Integer.parseInt(stok);
+                    if(temp == 0) {
+                        setStok();
+                    } else {
+                        jumlah = jumlah + temp;
+                        setStok();
+                    }
+                } catch (SQLException err) {
+                    JOptionPane.showMessageDialog(null, err.getMessage());
+                }
+                
                 this.setVisible(false);
                 new TambahStok().setVisible(true);
             }

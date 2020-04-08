@@ -20,9 +20,10 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
         ButtonStok = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         ButtonLogout = new javax.swing.JButton();
+        ButtonGanti = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -35,10 +36,6 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 580, 10));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("+ Transaksi");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 302, -1, -1));
-
         ButtonStok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ButtonStok.setText("Cek Stok");
         ButtonStok.addActionListener(new java.awt.event.ActionListener() {
@@ -47,6 +44,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ButtonStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 302, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setText("+ Transaksi");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 302, -1, -1));
 
         ButtonLogout.setBackground(new java.awt.Color(255, 0, 0));
         ButtonLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -58,6 +59,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ButtonLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
+
+        ButtonGanti.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonGanti.setText("Ganti Password");
+        ButtonGanti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonGantiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ButtonGanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 302, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setText("                                 Grafik");
@@ -110,7 +120,7 @@ public class Home extends javax.swing.JFrame {
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+            .addGroup(background1Layout.createSequentialGroup()
                 .addContainerGap(480, Short.MAX_VALUE)
                 .addComponent(jButtonMin)
                 .addGap(0, 0, 0)
@@ -122,7 +132,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMin)
                     .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 317, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 350));
@@ -149,6 +159,11 @@ public class Home extends javax.swing.JFrame {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void ButtonGantiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonGantiActionPerformed
+        this.setVisible(false);
+        new GantiPassword().setVisible(true);
+    }//GEN-LAST:event_ButtonGantiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,10 +201,11 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonGanti;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonStok;
     private hidroponiksahabat.Background background1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonMin;
     private javax.swing.JScrollPane jScrollPane1;
