@@ -94,7 +94,7 @@ public class Transaksi extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jumlah_stok = new javax.swing.JTextField();
+        total_transaksi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTambah = new javax.swing.JTable();
         ButtonKembali = new javax.swing.JButton();
@@ -122,7 +122,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Jumlah Transaksi");
 
-        jumlah_stok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        total_transaksi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         tableTambah.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tableTambah.setModel(new javax.swing.table.DefaultTableModel(
@@ -211,7 +211,7 @@ public class Transaksi extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(21, 21, 21)
-                                .addComponent(jumlah_stok, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(total_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(58, 58, 58))
         );
@@ -241,7 +241,7 @@ public class Transaksi extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jumlah_stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(total_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tambah)
@@ -264,7 +264,7 @@ public class Transaksi extends javax.swing.JFrame {
            
            barang = jComboBox1.getSelectedItem().toString();
            jumlah = Integer.parseInt(jumlahBarang.getText());
-           
+           int stok_barang = 0;
            try {
             Statement stat = (Statement) koneksi.koneksiDB().createStatement();
             String sql = "Select * from barang where nama_barang = '" + barang + "'";
@@ -272,12 +272,16 @@ public class Transaksi extends javax.swing.JFrame {
             while (res.next()) {
                 id = res.getString("id_barang");
                 harga = Integer.parseInt(res.getString("harga_barang"));
+                stok_barang = res.getInt("jumlah_barang");
             }
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, err.getMessage());
         }
-        
-       total = jumlah*harga;
+        if (jumlah > stok_barang){
+            JOptionPane.showMessageDialog(null, "Stok tidak cukup, Stok hanya tersedia "+stok_barang, "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+           total = jumlah*harga;
         obj[0] = id;
         obj[1] = barang;
         obj[2] = jumlah;
@@ -286,6 +290,9 @@ public class Transaksi extends javax.swing.JFrame {
         
         model.addRow(obj);
         jumlah_transaksi += total;
+        total_transaksi.setText(jumlah_transaksi.toString());
+        }
+       
     }//GEN-LAST:event_tambahActionPerformed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
@@ -377,11 +384,11 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jumlahBarang;
-    private javax.swing.JTextField jumlah_stok;
     private javax.swing.JTextField no_transaksi;
     private javax.swing.JButton selesai;
     private javax.swing.JTable tableTambah;
     private javax.swing.JButton tambah;
     private javax.swing.JTextField tanggal;
+    private javax.swing.JTextField total_transaksi;
     // End of variables declaration//GEN-END:variables
 }
