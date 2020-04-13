@@ -6,6 +6,7 @@ import hidroponiksahabat.koneksi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +20,7 @@ public class Transaksi extends javax.swing.JFrame {
     Integer jumlah_transaksi = 0;
     private DefaultTableModel model;
     Tanggal date;
+    HashMap<String,Integer> update = new HashMap<String, Integer>();
    
     
     public void setData() {
@@ -279,8 +281,10 @@ public class Transaksi extends javax.swing.JFrame {
         }
         if (jumlah > stok_barang){
             JOptionPane.showMessageDialog(null, "Stok tidak cukup, Stok hanya tersedia "+stok_barang, "Peringatan", JOptionPane.WARNING_MESSAGE);
+            
         }
         else{
+            update.put(id, stok_barang);
            total = jumlah*harga;
         obj[0] = id;
         obj[1] = barang;
@@ -299,11 +303,13 @@ public class Transaksi extends javax.swing.JFrame {
         int ok = 1;
         DefaultTableModel model = (DefaultTableModel) tableTambah.getModel();
         int row = tableTambah.getSelectedRow();
+        id = model.getValueAt(row, 0).toString();
         if(row>=0){
              ok=JOptionPane.showConfirmDialog(null, "Yakin Mau Hapus?","Konfirmasi",JOptionPane.YES_NO_OPTION);
         }
         if (ok == 0){
             model.removeRow(row);
+            update.remove(id);
         }
     }//GEN-LAST:event_hapusActionPerformed
 
@@ -320,12 +326,7 @@ public class Transaksi extends javax.swing.JFrame {
                     jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
                     sql = "insert into item_transaksi(id_transaksi, id_barang, jumlah_barang) values (" + "'" + idTransaksi + "'," + "'" + id + "'," + jumlah + ")";
                     stat.execute(sql);
-                    sql = "Select jumlah_barang from barang where id_barang = "+ id;
-                    ResultSet res = stat.executeQuery(sql);
-                    int temp = res.getInt("jumlah_barang");
-                    temp = temp-jumlah;
-                    sql = "update barang set jumlah_barang ="+ temp;
-                    stat.execute(sql);
+                    updatebarang(id, jumlah);
                     }
                                 
             } catch (SQLException err) {
@@ -338,7 +339,18 @@ public class Transaksi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data Masih Kosong!!!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_selesaiActionPerformed
-
+    
+    public void updatebarang(String id, int jumlah){
+        try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String query = "update barang set jumlah_barang ="+ (update.get(id)+jumlah)+ " where id_barang = "+id;
+            stat.execute(query);
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
