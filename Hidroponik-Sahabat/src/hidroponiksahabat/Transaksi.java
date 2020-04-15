@@ -321,7 +321,7 @@ public class Transaksi extends javax.swing.JFrame {
                 Statement stat = (Statement) koneksi.koneksiDB().createStatement();
                 String sql = "insert into transaksi(id_transaksi, jumlah_transaksi) values ("+"'"+ idTransaksi +"',"+ jumlah_transaksi +")";
                 stat.execute(sql);
-                for(int i=0; i<jumlah; i++){
+                for(int i=0; i<tableTambah.getRowCount(); i++){
                     id = tableTambah.getValueAt(i, 0).toString();
                     jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
                     sql = "insert into item_transaksi(id_transaksi, id_barang, jumlah_barang) values (" + "'" + idTransaksi + "'," + "'" + id + "'," + jumlah + ")";
@@ -343,7 +343,7 @@ public class Transaksi extends javax.swing.JFrame {
     public void updatebarang(String id, int jumlah){
         try {
             Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-            String query = "update barang set jumlah_barang ="+ (update.get(id)+jumlah)+ " where id_barang = "+id;
+            String query = "update barang set jumlah_barang ="+ (update.get(id)-jumlah)+ " where id_barang = "+id;
             stat.execute(query);
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, err.getMessage());

@@ -1,17 +1,22 @@
 package hidroponiksahabat;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.*;
 
 public class TambahStok extends javax.swing.JFrame {
-    String id, barang, stok;
-    int jumlah;
+    String id, barang;
+    int jumlah,stok;
     Integer harga, total;
-    private final DefaultTableModel model;
+    private DefaultTableModel model;
+    HashMap<String,Integer> update = new HashMap<String, Integer>();
 
     /**
      * Creates new form TambahStok
@@ -46,16 +51,6 @@ public class TambahStok extends javax.swing.JFrame {
         Tanggal date = new Tanggal();
         tanggal.setText(date.getTanggal());
         this.setLocationRelativeTo(null);
-    }
-    
-    public void setStok() {
-        try {
-            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
-        String sql = "Update barang SET jumlah_barang=" + jumlah + " WHERE id_barang=" + id;
-        stat.execute(sql);
-        } catch(SQLException err) {
-            JOptionPane.showMessageDialog(null, err.getMessage());
-        }
     }
     
     
@@ -267,7 +262,8 @@ public class TambahStok extends javax.swing.JFrame {
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
                 id = res.getString("id_barang");
-                stok = res.getString("jumlah_barang");
+                stok = res.getInt("jumlah_barang");
+                update.put(id, stok);
             }
         } catch (SQLException err) {
             JOptionPane.showMessageDialog(null, err.getMessage());
@@ -296,34 +292,52 @@ public class TambahStok extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMinActionPerformed
 
     private void selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selesaiActionPerformed
-        if (id != null) {
-            if (JOptionPane.showConfirmDialog(null, "Data Sudah Benar?", "Yakin", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                try {
-                    Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+        int jumlah = tableTambah.getRowCount();
+        System.out.println(jumlah);
+        if (jumlah > 0) {
+            try {
+                Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                for(int i=0; i<tableTambah.getRowCount(); i++){
+                    id = tableTambah.getValueAt(i, 0).toString();
+                    jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
+                    harga = Integer.parseInt(tableTambah.getValueAt(i, 3).toString());
                     String sql = "insert into stock(id_barang, jumlah_stock, harga_stock) values (" + "'" + id + "'," + "'" + jumlah + "'," + harga + ")";
                     stat.execute(sql);
-
-                    int temp = Integer.parseInt(stok);
-                    if(temp == 0) {
-                        setStok();
-                    } else {
-                        jumlah = jumlah + temp;
-                        setStok();
+                    updatebarang(id, jumlah);
                     }
-                } catch (SQLException err) {
-                    JOptionPane.showMessageDialog(null, err.getMessage());
-                }
-                
+                JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(false);
-                new TambahStok().setVisible(true);
+            new CekStok().setVisible(true);
+            } catch (SQLException err) {
+                JOptionPane.showMessageDialog(null, "HERE");
             }
-        } else {
+            
+          } else {
             JOptionPane.showMessageDialog(null, "Data Masih Kosong!!!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_selesaiActionPerformed
 
+    public void updatebarang(String id, int jumlah){
+        try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String query = "update barang set jumlah_barang ="+ (update.get(id)+jumlah)+ " where id_barang = "+id;
+            stat.execute(query);
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
+        
+    }
+    
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
-        model.removeRow(0);
+        DefaultTableModel model = (DefaultTableModel) tableTambah.getModel();
+        int row = tableTambah.getSelectedRow();
+        if(row>=0){
+             if(JOptionPane.showConfirmDialog(null, "Yakin Mau Hapus?","Konfirmasi",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                model.removeRow(row);
+                id = model.getValueAt(row, 0).toString();
+                update.remove(id);
+             }
+        }
     }//GEN-LAST:event_hapusActionPerformed
 
     /**
