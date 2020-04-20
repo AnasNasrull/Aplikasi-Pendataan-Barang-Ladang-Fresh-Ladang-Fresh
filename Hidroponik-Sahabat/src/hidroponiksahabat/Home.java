@@ -1,12 +1,27 @@
 package hidroponiksahabat;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.jfree.*;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.ChartFrame;
 
 public class Home extends javax.swing.JFrame {
+    Map<String, String> date;
+    Map<String, Integer> barang;
     public Home() {
         initComponents();
-        
+        setGrafik();
         this.setLocationRelativeTo(null);
     }
 
@@ -19,17 +34,23 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         ButtonStok = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         ButtonLogout = new javax.swing.JButton();
         ButtonGanti = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         background1 = new hidroponiksahabat.Background();
         jButtonMin = new javax.swing.JButton();
         jButtonClose = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jComboBox4 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -74,10 +95,6 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(ButtonGanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 302, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("                                 Grafik");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 90, 338, 194));
-
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,6 +138,25 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Grafik Penjualan");
+
+        jButton1.setText("Tampilkan Grafik");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Bulan dan Tahun");
+
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
@@ -130,6 +166,19 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jButtonMin)
                 .addGap(0, 0, 0)
                 .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(background1Layout.createSequentialGroup()
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(jLabel1))
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton1)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         background1Layout.setVerticalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +186,14 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMin)
                     .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 350));
@@ -176,6 +232,106 @@ public class Home extends javax.swing.JFrame {
         new Transaksi().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String terpilih = jComboBox4.getSelectedItem().toString();
+        String data = date.get(terpilih).toString();
+        barang = new HashMap<>();
+        try{
+              Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+              String sql = "select transaksi.id_transaksi, tanggal_transaksi, barang.id_barang, barang.nama_barang, item_transaksi.jumlah_barang "
+                      + "from transaksi inner join item_transaksi on transaksi.id_transaksi = item_transaksi.id_transaksi "
+                      + "inner join barang on item_transaksi.id_barang = barang.id_barang;";
+              ResultSet res = stat.executeQuery(sql);
+
+              while(res.next ()){
+                    if(res.getString(2).startsWith(data)){
+                        if(barang.containsKey(res.getString(3))){
+                            barang.replace(res.getString(3), barang.get(res.getString(3))+ res.getInt(4));
+                        }else{
+                            barang.put(res.getString("nama_barang"), res.getInt("jumlah_barang"));
+                        }
+                    }
+               }
+              DefaultPieDataset object = new DefaultPieDataset();
+              for (Map.Entry m:barang.entrySet()){
+                object.setValue((Comparable) m.getKey(), (Integer)m.getValue());
+            }
+              JFreeChart chart = ChartFactory.createPieChart("Pie Chart", object);
+              ChartFrame frame = new ChartFrame("Grafik Penjualan pada" + terpilih, chart);
+              frame.setSize(400, 400);
+              frame.setVisible(true);
+         }catch(SQLException err){
+               JOptionPane.showMessageDialog(null, err.getMessage() );
+         }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+    
+    private void setGrafik(){
+        try {
+            ArrayList<String> tanggal = new ArrayList<String>();
+            date = new HashMap<String, String>();
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String sql = "Select * from transaksi";
+            ResultSet res = stat.executeQuery(sql);
+
+            while (res.next()) {
+                tanggal.add(res.getString(2));
+            }
+            for(String data: tanggal){
+                String test = data.substring(5, 7);
+                switch(test){
+                    case "01" : 
+                        date.put("Januari " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "02":
+                        date.put("Februari " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "03" : 
+                        date.put("Maret " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "04":
+                        date.put("April " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "05" : 
+                        date.put("Mei " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "06":
+                        date.put("Juni " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "07" : 
+                        date.put("Juli " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "08":
+                        date.put("Agustus " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "09" : 
+                        date.put("September " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "10":
+                        date.put("Oktober " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "11" : 
+                        date.put("November " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                    case "12":
+                        date.put("Desember " + data.substring(0, 4), (String) data.subSequence(0, 7));
+                        break;
+                }
+                jComboBox4.removeAllItems();
+            for (Map.Entry m:date.entrySet()){
+                jComboBox4.addItem(m.getKey());
+            }
+            }
+                
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -216,12 +372,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonStok;
     private hidroponiksahabat.Background background1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonMin;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
