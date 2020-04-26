@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.*;
 
 public class TambahStok extends javax.swing.JFrame {
-    String id, barang;
+    String id, barang, id_stock;
     int jumlah,stok;
     Integer harga, total;
     private DefaultTableModel model;
@@ -48,11 +48,38 @@ public class TambahStok extends javax.swing.JFrame {
         model.addColumn("Harga per Kg");
         model.addColumn("Total Harga");
         setData();
+        IdStock();
         Tanggal date = new Tanggal();
         tanggal.setText(date.getTanggal());
         this.setLocationRelativeTo(null);
     }
     
+    public void IdStock(){
+        String id = null;
+        try {
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String sql = "Select * from stock";
+            ResultSet res = stat.executeQuery(sql);
+
+            while (res.next()) {
+                id = res.getString("id_stock");
+            }
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, err.getMessage());
+        }
+        if (id == null){
+            id = "ST000001";
+        }
+        else {
+            Integer code = Integer.parseInt(id.substring(2, id.length()));
+            Integer temp = code + 1;
+            id = id.replaceAll(code.toString(),temp.toString());
+        }
+        id_stock = id;
+        System.out.println(id);
+        no_stock.setText(id);
+        
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,7 +98,6 @@ public class TambahStok extends javax.swing.JFrame {
         jumlah_stok = new javax.swing.JTextField();
         harga_satuan = new javax.swing.JTextField();
         selesai = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         background1 = new hidroponiksahabat.Background();
         hapus = new javax.swing.JButton();
         tambah = new javax.swing.JButton();
@@ -82,6 +108,8 @@ public class TambahStok extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         tanggal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        no_stock = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -127,10 +155,6 @@ public class TambahStok extends javax.swing.JFrame {
             }
         });
         getContentPane().add(selesai, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 341, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Tanggal");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         background1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -191,6 +215,11 @@ public class TambahStok extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("@ rupiah");
 
+        no_stock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("ID Transaksi");
+
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
@@ -204,16 +233,28 @@ public class TambahStok extends javax.swing.JFrame {
                 .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(background1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(ButtonKembali)
-                .addGap(32, 32, 32)
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(background1Layout.createSequentialGroup()
-                        .addComponent(tambah)
-                        .addGap(35, 35, 35)
-                        .addComponent(hapus))
-                    .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3)
+                        .addGap(31, 31, 31)
+                        .addComponent(ButtonKembali))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)))
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addComponent(tambah)
+                                .addGap(35, 35, 35)
+                                .addComponent(hapus))
+                            .addGroup(background1Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jLabel3))))
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(no_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -230,9 +271,12 @@ public class TambahStok extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(no_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(80, 80, 80)
                 .addComponent(jLabel3)
                 .addGap(48, 48, 48)
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,11 +341,13 @@ public class TambahStok extends javax.swing.JFrame {
         if (jumlah > 0) {
             try {
                 Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+                String sql = "insert into stock(id_stock) values ("+"'"+ id_stock +"')";
+                stat.execute(sql);
                 for(int i=0; i<tableTambah.getRowCount(); i++){
                     id = tableTambah.getValueAt(i, 0).toString();
                     jumlah = Integer.parseInt(tableTambah.getValueAt(i, 2).toString());
                     harga = Integer.parseInt(tableTambah.getValueAt(i, 3).toString());
-                    String sql = "insert into stock(id_barang, jumlah_stock, harga_stock) values (" + "'" + id + "'," + "'" + jumlah + "'," + harga + ")";
+                    sql = "insert into item_stock(id_stock, id_barang, jumlah_barang, harga_item) values (" + "'" + id_stock + "'," + "'" + id + "'," + "'" + jumlah + "'," + harga + ")";
                     stat.execute(sql);
                     updatebarang(id, jumlah);
                     }
@@ -309,7 +355,7 @@ public class TambahStok extends javax.swing.JFrame {
                 this.setVisible(false);
             new CekStok().setVisible(true);
             } catch (SQLException err) {
-                JOptionPane.showMessageDialog(null, "HERE");
+                JOptionPane.showMessageDialog(null, err);
             }
             
           } else {
@@ -387,11 +433,12 @@ public class TambahStok extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jumlah_stok;
+    private javax.swing.JTextField no_stock;
     private javax.swing.JButton selesai;
     private javax.swing.JTable tableTambah;
     private javax.swing.JButton tambah;
