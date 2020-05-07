@@ -1,17 +1,28 @@
 package hidroponiksahabat;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import static java.util.Objects.hash;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.ChartFrame;
+
+
 public class Home extends javax.swing.JFrame {
     Map<String, String> date;
     Map<String, Integer> barang;
@@ -32,10 +43,6 @@ public class Home extends javax.swing.JFrame {
 
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
-        ButtonStok = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        ButtonLogout = new javax.swing.JButton();
-        ButtonGanti = new javax.swing.JButton();
         background1 = new hidroponiksahabat.Background();
         jButtonMin = new javax.swing.JButton();
         jButtonClose = new javax.swing.JButton();
@@ -44,51 +51,17 @@ public class Home extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        ButtonLogout = new javax.swing.JButton();
+        ButtonGanti = new javax.swing.JButton();
+        ButtonStok = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 580, 10));
-
-        ButtonStok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ButtonStok.setText("Cek Stok");
-        ButtonStok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonStokActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ButtonStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 302, -1, -1));
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("+ Transaksi");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 302, -1, -1));
-
-        ButtonLogout.setBackground(new java.awt.Color(255, 0, 0));
-        ButtonLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ButtonLogout.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonLogout.setText("Logout");
-        ButtonLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonLogoutActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ButtonLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
-
-        ButtonGanti.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ButtonGanti.setText("Ganti Password");
-        ButtonGanti.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonGantiActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ButtonGanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 302, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 810, 10));
 
         background1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -117,9 +90,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Grafik Penjualan");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Tampilkan Grafik");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +101,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,8 +109,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Bulan dan Tahun");
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Buat Laporan");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,30 +120,74 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        ButtonLogout.setBackground(new java.awt.Color(255, 0, 0));
+        ButtonLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonLogout.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonLogout.setText("Logout");
+        ButtonLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLogoutActionPerformed(evt);
+            }
+        });
+
+        ButtonGanti.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonGanti.setText("Ganti Password");
+        ButtonGanti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonGantiActionPerformed(evt);
+            }
+        });
+
+        ButtonStok.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ButtonStok.setText("Cek Stok");
+        ButtonStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonStokActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setText("+ Transaksi");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(background1Layout.createSequentialGroup()
-                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(background1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel1))
-                    .addGroup(background1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 198, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonMin)
                 .addGap(0, 0, 0)
                 .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(background1Layout.createSequentialGroup()
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel1))
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel2)
+                        .addGap(61, 61, 61)
+                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, background1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jButton2)
+                .addGap(40, 40, 40)
+                .addComponent(ButtonStok)
+                .addGap(40, 40, 40)
+                .addComponent(ButtonGanti)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ButtonLogout)
+                .addGap(40, 40, 40))
         );
         background1Layout.setVerticalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,19 +195,29 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMin)
                     .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(48, 48, 48)
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(ButtonLogout))
+                    .addGroup(background1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(ButtonStok)
+                            .addComponent(ButtonGanti))))
+                .addGap(39, 39, 39))
         );
 
-        getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 350));
+        getContentPane().add(background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -261,7 +292,30 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+        String terpilih = jComboBox4.getSelectedItem().toString();
+        String data = date.get(terpilih).toString();
+        try{
+            Statement stat = (Statement) koneksi.koneksiDB().createStatement();
+            String report;
+            report = "D:\\AAAAAAAAAA\\Aplikasi-Pendataan-Barang-Ladang-Fresh\\"+
+                    "Hidroponik-Sahabat\\src\\hidroponiksahabat\\laporan.jrxml";
+            HashMap hash =  new HashMap();
+            hash.put("date", data);
+            hash.put("bulan", terpilih);
+            com.mysql.jdbc.Connection con  = koneksi.koneksiDB();
+            try{
+                JasperReport rpt = JasperCompileManager.compileReport(report);
+                JasperPrint print = JasperFillManager.fillReport(rpt, hash, con);
+                JasperViewer.viewReport(print, false);
+                File pdf = File.createTempFile("Laporan Bulan "+ terpilih , ".pdf");
+                JasperExportManager.exportReportToPdfStream(print, new FileOutputStream(pdf));
+            }catch ( Exception ex){
+                System.out.println("Report can't view because" + ex);
+            }
+            
+        }catch( Exception e){
+            System.out.println(e);
+        }
         
     }//GEN-LAST:event_jButton3ActionPerformed
     
